@@ -95,3 +95,74 @@ function myReduce(collection, callback, acc) {
     return accumulator;
 }
 
+function myFind(collection, predicate) {
+    if (Array.isArray(collection)) {
+        for (let i = 0; i < collection.length; i++) {
+            if (predicate(collection[i])) {
+                return collection[i]; // Found a matching element, return it
+            }
+        }
+    } else if (typeof collection === 'object' && collection !== null) {
+        const keys = Object.keys(collection);
+        for (let i = 0; i < keys.length; i++) {
+            const key = keys[i];
+            if (predicate(collection[key])) {
+                return collection[key]; // Found a matching element, return it
+            }
+        }
+    } else {
+        throw new Error('Invalid collection type');
+    }
+
+    return undefined; // No matching element found, return undefined
+}
+
+// Example usage with an array
+const result1 = myFind([1, 2, 3, 4, 5, 6], function(num) {
+    return num % 2 === 0;
+});
+console.log(result1); // Output: 2
+
+// Example usage with an object
+const result2 = myFind({ one: 1, three: 3, four: 4, six: 6 }, function(num) {
+    return num % 2 === 0;
+});
+console.log(result2); // Output: 4
+
+
+
+function myFilter(collection, predicate) {
+    const result = [];
+
+    if (Array.isArray(collection)) {
+        for (let i = 0; i < collection.length; i++) {
+            if (predicate(collection[i])) {
+                result.push(collection[i]);
+            }
+        }
+    } else if (typeof collection === 'object' && collection !== null) {
+        const keys = Object.keys(collection);
+        for (let i = 0; i < keys.length; i++) {
+            const key = keys[i];
+            if (predicate(collection[key])) {
+                result.push(collection[key]);
+            }
+        }
+    } else {
+        throw new Error('Invalid collection type');
+    }
+
+    return result;
+}
+
+function mySize(collection) {
+    if (Array.isArray(collection)) {
+        return collection.length;
+    } else if (typeof collection === 'object' && collection !== null) {
+        return Object.keys(collection).length;
+    } else {
+        throw new Error('Invalid collection type');
+    }
+}
+
+
