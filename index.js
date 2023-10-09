@@ -178,3 +178,21 @@ const result2 = myFilter({ one: 1, three: 3, five: 5 }, function(num) {
     return num % 2 === 0;
 });
 console.log(result2); // Output: []
+
+function mySize(collection) {
+    if (Array.isArray(collection)) {
+        return collection.length;
+    } else if (typeof collection === 'object' && collection !== null) {
+        return Object.keys(collection).length;
+    } else {
+        throw new Error('Invalid collection type');
+    }
+}
+
+// Example usage with an object
+const size1 = mySize({ one: 1, two: 2, three: 3 });
+console.log(size1); // Output: 3
+
+// Example usage with an empty array
+const size2 = mySize([]);
+console.log(size2); // Output: 0
